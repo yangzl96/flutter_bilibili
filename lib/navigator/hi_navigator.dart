@@ -55,7 +55,7 @@ class RouteStatusInfo {
 class HiNavigator extends _RouterJumpListener {
   static HiNavigator? _instance;
   RouteJumpListener? _routeJump;
-  List<RouteChangeListener> _listeners = []; //很多页面都可以监听路由状态的变化所以是数组
+  final List<RouteChangeListener> _listeners = []; //很多页面都可以监听路由状态的变化所以是数组
   RouteStatusInfo? _current; //打开过的页面
   HiNavigator._();
   static HiNavigator getInstance() {
