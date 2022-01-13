@@ -1,7 +1,7 @@
-import 'package:bilibili/pages/home.dart';
-import 'package:bilibili/pages/login.dart';
-import 'package:bilibili/pages/registration.dart';
-import 'package:bilibili/pages/video_detail.dart';
+import 'package:bilibili/navigator/bottom_navigator.dart';
+import 'package:bilibili/pages/login_page.dart';
+import 'package:bilibili/pages/registration_page.dart';
+import 'package:bilibili/pages/video_detail_page.dart';
 import 'package:flutter/material.dart';
 
 ///路由的管理方法
@@ -31,7 +31,8 @@ RouteStatus getStatus(MaterialPage page) {
     return RouteStatus.login;
   } else if (page.child is RegistrationPage) {
     return RouteStatus.registration;
-  } else if (page.child is HomePage) {
+  } else if (page.child is BottomNavigator) {
+    // HomePage 不再是首页了  BottomNavigator才是首页
     return RouteStatus.home;
   } else if (page.child is VideoDetailPage) {
     return RouteStatus.detail;
@@ -57,7 +58,9 @@ class HiNavigator extends _RouterJumpListener {
   RouteJumpListener? _routeJump;
   final List<RouteChangeListener> _listeners = []; //很多页面都可以监听路由状态的变化所以是数组
   RouteStatusInfo? _current; //打开过的页面
+  RouteStatusInfo? _bottomTap; // 监听底部导航的切换
   HiNavigator._();
+
   static HiNavigator getInstance() {
     _instance ??= HiNavigator._();
     return _instance!;
@@ -68,6 +71,12 @@ class HiNavigator extends _RouterJumpListener {
   // 所以这里提供一个方法 做关联
   void registerRouteJump(RouteJumpListener routeJumpListener) {
     _routeJump = routeJumpListener;
+  }
+
+  // 监听底部导航的切换
+  void onBottomTabChange(int index, Widget page) {
+    _bottomTap = RouteStatusInfo(RouteStatus.home, page);
+    _notify(_bottomTap!);
   }
 
   // 监听路由页面跳转
@@ -94,6 +103,11 @@ class HiNavigator extends _RouterJumpListener {
 
   // 通知所有页面订阅者 页面堆栈信息发生了变化
   void _notify(RouteStatusInfo current) {
+    // 底部tab的时候 重写 current
+    if (current.page is BottomNavigator && _bottomTap != null) {
+      // 如果打开的是首页，则明确到首页具体的tab
+      current = _bottomTap!;
+    }
     print('hi_navigator:current: ${current.page}');
     print('hi_navigator:pre: ${_current?.page}');
     _listeners.forEach((listener) {

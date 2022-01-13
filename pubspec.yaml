@@ -36,6 +36,7 @@ dependencies:
   dio: ^4.0.0
   shared_preferences: ^2.0.6
   fluttertoast: ^8.0.8
+  underline_indicator: ^0.0.4
 
 dev_dependencies:
   flutter_test:
