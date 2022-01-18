@@ -1,6 +1,5 @@
 import 'package:bilibili/http/core/hi_error.dart';
 import 'package:bilibili/http/dao/login_dao.dart';
-import 'package:bilibili/model/video_model.dart';
 import 'package:bilibili/navigator/hi_navigator.dart';
 import 'package:bilibili/utils/string_utils.dart';
 import 'package:bilibili/utils/toast.dart';

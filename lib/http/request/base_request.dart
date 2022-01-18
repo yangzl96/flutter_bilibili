@@ -1,3 +1,4 @@
+import 'package:bilibili/config/index.dart';
 import 'package:bilibili/http/dao/login_dao.dart';
 
 enum HttpMethod { GET, POST, DELETE }
@@ -13,7 +14,7 @@ abstract class BaseRequest {
 
   // baseUrl
   String anthority() {
-    return '192.168.50.47:3001';
+    return Config.BASE_URL;
   }
 
   // 抽象方法

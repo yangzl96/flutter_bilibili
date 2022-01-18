@@ -1,6 +1,6 @@
 import 'package:bilibili/db/hi_cache.dart';
 import 'package:bilibili/http/dao/login_dao.dart';
-import 'package:bilibili/model/video_model.dart';
+import 'package:bilibili/model/home_model.dart';
 import 'package:bilibili/navigator/hi_navigator.dart';
 import 'package:bilibili/pages/home_page.dart';
 import 'package:bilibili/pages/login_page.dart';
