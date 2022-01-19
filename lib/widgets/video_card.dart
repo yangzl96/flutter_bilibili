@@ -1,7 +1,11 @@
 import 'package:bilibili/config/index.dart';
 import 'package:bilibili/model/home_model.dart';
+import 'package:bilibili/navigator/hi_navigator.dart';
 import 'package:bilibili/utils/format_utils.dart';
+import 'package:bilibili/widgets/view_util.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class VideoCard extends StatelessWidget {
   final VideoModel videoInfo;
@@ -12,7 +16,9 @@ class VideoCard extends StatelessWidget {
     Color textColor = Colors.black87;
     return InkWell(
         onTap: () {
-          print(videoInfo.url);
+          print(videoInfo);
+          HiNavigator.getInstance()
+              .onJumpTo(RouteStatus.detail, args: {"videoInfo": videoInfo});
         },
         child: SizedBox(
           height: 200,
@@ -78,7 +84,7 @@ class VideoCard extends StatelessWidget {
             //   ),
             // ),
             Padding(
-              padding: EdgeInsets.only(left: 8),
+              padding: const EdgeInsets.only(left: 8),
               child: Text(
                 owner!.username!,
                 style: TextStyle(
@@ -89,7 +95,7 @@ class VideoCard extends StatelessWidget {
             ),
           ],
         ),
-        Icon(
+        const Icon(
           Icons.more_vert_sharp,
           size: 15,
           color: Colors.grey,
@@ -101,14 +107,13 @@ class VideoCard extends StatelessWidget {
   // 图片
   _itemImage(BuildContext context) {
     var videoCover = 'http://${Config.BASE_URL}${videoInfo.cover}';
-    final size = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        Image.network(
+        cachedImage(
           videoCover,
-          width: size / 2 - 10,
+          width: size.width / 2 - 10,
           height: 110,
-          fit: BoxFit.fill,
         ),
         Positioned(
           left: 0,

@@ -134,7 +134,7 @@ class _HomePageState extends HiState<HomePage>
 
   _appBar() {
     return Padding(
-      padding: EdgeInsets.only(left: 5, right: 15),
+      padding: EdgeInsets.only(left: 10, right: 10),
       child: Row(
         children: [
           InkWell(
@@ -144,11 +144,11 @@ class _HomePageState extends HiState<HomePage>
               }
             },
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(23),
-              child: Image(
-                height: 46,
-                width: 46,
-                image: AssetImage('assets/images/avatar.png'),
+              borderRadius: BorderRadius.circular(20),
+              child: const Image(
+                height: 40,
+                width: 40,
+                image: AssetImage('assets/images/noface.jpg'),
               ),
             ),
           ),

@@ -63,7 +63,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
         RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map? args}) {
       _routeStatus = routeStatus;
       if (routeStatus == RouteStatus.detail) {
-        videoModel = args!['videoMo'];
+        videoInfo = args!['videoInfo'];
       }
       notifyListeners();
     }));
@@ -73,7 +73,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   // 如果这个页面在原有的页面数组中已经存在了，那么会将他以及他上面的页面都清空，
   // 然后创建一个新的页面
   List<MaterialPage> pages = []; //存放所有的页面
-  VideoModel? videoModel;
+  VideoModel? videoInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
       pages.clear();
       page = pageWrap(BottomNavigator());
     } else if (routeStatus == RouteStatus.detail) {
-      page = pageWrap(VideoDetailPage(videoModel!));
+      page = pageWrap(VideoDetailPage(videoInfo!));
     } else if (routeStatus == RouteStatus.registration) {
       page = pageWrap(RegistrationPage());
     } else if (routeStatus == RouteStatus.login) {
@@ -144,7 +144,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   RouteStatus get routeStatus {
     if (_routeStatus != RouteStatus.registration && !hasLogin) {
       return _routeStatus = RouteStatus.login;
-    } else if (videoModel != null) {
+    } else if (videoInfo != null) {
       return _routeStatus = RouteStatus.detail;
     } else {
       return _routeStatus;
