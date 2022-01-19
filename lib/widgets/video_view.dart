@@ -30,7 +30,9 @@ class _VideoViewState extends State<VideoView> {
         videoPlayerController: _videoPlayerController,
         aspectRatio: widget.aspectRatio,
         autoPlay: widget.autoPlay,
-        looping: widget.looping);
+        looping: widget.looping,
+        // customControls: 
+    );
   }
 
   @override
