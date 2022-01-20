@@ -115,6 +115,7 @@ class VideoModel {
   int? coin;
   int? share;
   int? size;
+  String? created_at;
   Owner? owner;
 
   VideoModel(
@@ -133,6 +134,7 @@ class VideoModel {
       this.like,
       this.coin,
       this.share,
+      this.created_at,
       this.size,
       this.owner});
 
@@ -152,6 +154,7 @@ class VideoModel {
     like = json['like'];
     coin = json['coin'];
     share = json['share'];
+    created_at = json['created_at'];
     size = json['size'];
     owner = json['owner'] != null ? Owner.fromJson(json['owner']) : null;
   }
@@ -164,6 +167,7 @@ class VideoModel {
     data['tname'] = tname;
     data['url'] = url;
     data['cover'] = cover;
+    data['created_at'] = created_at;
     data['desc'] = desc;
     data['view'] = view;
     data['pubdate'] = pubdate;
@@ -184,17 +188,23 @@ class VideoModel {
 class Owner {
   int? id;
   String? username;
+  String? face;
+  int? fans;
 
-  Owner({this.id, this.username});
+  Owner({this.id, this.username, this.face, this.fans});
 
   Owner.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    face = json['face'];
+    fans = json['fans'];
     username = json['username'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = id;
+    data['face'] = face;
+    data['fans'] = fans;
     data['username'] = username;
     return data;
   }

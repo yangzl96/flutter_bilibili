@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bilibili/config/index.dart';
 import 'package:bilibili/model/home_model.dart';
 import 'package:bilibili/navigator/hi_navigator.dart';
@@ -16,7 +18,6 @@ class VideoCard extends StatelessWidget {
     Color textColor = Colors.black87;
     return InkWell(
         onTap: () {
-          print(videoInfo);
           HiNavigator.getInstance()
               .onJumpTo(RouteStatus.detail, args: {"videoInfo": videoInfo});
         },
@@ -75,18 +76,18 @@ class VideoCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            // ClipRRect(
-            //   borderRadius: BorderRadius.circular(12),
-            //   child: cachedImage(
-            //     owner!.face,
-            //     height: 24,
-            //     width: 24,
-            //   ),
-            // ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: cachedImage(
+                'http://${Config.BASE_URL}${owner!.face}',
+                height: 24,
+                width: 24,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 8),
               child: Text(
-                owner!.username!,
+                owner.username!,
                 style: TextStyle(
                   fontSize: 11,
                   color: textColor,

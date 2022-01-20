@@ -356,6 +356,7 @@ class _MaterialControlsState extends State<MaterialControls>
   }
 
   void _onExpandCollapse() {
+    // 全屏会报错 这里拦截一下
     Size size = chewieController.videoPlayerController.value.size;
     if (size == null || size.width == 0.0) {
       print('_onExpandCollapse:videoPlayerController.value.size is null.');
