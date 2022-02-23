@@ -6,6 +6,7 @@ import 'package:bilibili/core/hi_state.dart';
 
 /// 通用底层带分页和刷新的页面框架
 /// M为Dao返回数据模型，L为列表数据模型，T为具体widget
+/// 通用框架没有具体的业务 设置为抽象的
 abstract class HiBaseTabState<M, L, T extends StatefulWidget> extends HiState<T>
     with AutomaticKeepAliveClientMixin {
   /// 列表

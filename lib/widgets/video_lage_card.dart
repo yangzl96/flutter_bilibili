@@ -62,7 +62,7 @@ class VideoLargeCard extends StatelessWidget {
         children: [
           Text(
             videoInfo.title ?? '',
-            style: TextStyle(fontSize: 12, color: Colors.black87),
+            style: const TextStyle(fontSize: 12, color: Colors.black87),
           ),
           _buildBottomContent()
         ],
