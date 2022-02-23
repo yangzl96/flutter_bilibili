@@ -8,6 +8,7 @@ import 'package:bilibili/pages/video_detail_page.dart';
 import 'package:bilibili/utils/color.dart';
 import 'package:bilibili/utils/toast.dart';
 import 'package:bilibili/widgets/hi_tabs.dart';
+import 'package:bilibili/widgets/loading_container.dart';
 import 'package:bilibili/widgets/navigation_bar.dart';
 import 'package:bilibili/widgets/view_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,8 +39,9 @@ class _HomePageState extends HiState<HomePage>
   List<CategoryModel> categoryList = [];
   // 轮播
   List<BannerModel> bannerList = [];
-
   TabController? _controller;
+  // 加载状态
+  bool _isLoading = true;
 
   // 当前页面
   Widget? _currenPage;
@@ -106,32 +108,35 @@ class _HomePageState extends HiState<HomePage>
   Widget build(BuildContext context) {
     // super.build(context); 去除build的警告
     return Scaffold(
-      body: Column(
-        children: [
-          NavigationBar(
-            height: 50,
-            child: _appBar(),
-            color: Colors.white,
-            statusStyle: StatusStyle.DART_CONTENT,
-          ),
-          // tab
-          Container(
-            color: Colors.white,
-            // padding: const EdgeInsets.only(top: 1),
-            child: _tabBar(),
-          ),
-          // tabView
-          Flexible(
-              child: TabBarView(
-            controller: _controller,
-            children: categoryList.map((tab) {
-              return HomeTabPage(
-                categoryName: tab.name!,
-                bannerList: tab.name == '推荐' ? bannerList : null,
-              );
-            }).toList(),
-          ))
-        ],
+      body: LoadingContainer(
+        isLoading: _isLoading,
+        child: Column(
+          children: [
+            NavigationBar(
+              height: 50,
+              child: _appBar(),
+              color: Colors.white,
+              statusStyle: StatusStyle.DART_CONTENT,
+            ),
+            // tab
+            Container(
+              decoration: bottomBoxShadow(context),
+              // padding: const EdgeInsets.only(top: 1),
+              child: _tabBar(),
+            ),
+            // tabView
+            Flexible(
+                child: TabBarView(
+              controller: _controller,
+              children: categoryList.map((tab) {
+                return HomeTabPage(
+                  categoryName: tab.name!,
+                  bannerList: tab.name == '推荐' ? bannerList : null,
+                );
+              }).toList(),
+            ))
+          ],
+        ),
       ),
     );
   }
@@ -164,11 +169,18 @@ class _HomePageState extends HiState<HomePage>
       setState(() {
         categoryList = result.categoryList ?? [];
         bannerList = result.bannerList ?? [];
+        _isLoading = false;
       });
     } on NeedAuth catch (e) {
       showWarnToast(e.message);
+      setState(() {
+        _isLoading = false;
+      });
     } on HiNetError catch (e) {
       showWarnToast(e.message);
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
