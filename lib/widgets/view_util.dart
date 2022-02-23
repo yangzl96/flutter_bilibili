@@ -70,3 +70,15 @@ borderLine(BuildContext context, {bottom: true, top: false}) {
 SizedBox hiSpace({double height: 1, double width: 1}) {
   return SizedBox(height: height, width: width);
 }
+
+// 底部阴影
+bottomBoxShadow(BuildContext context) {
+  return BoxDecoration(color: Colors.white, boxShadow: [
+    BoxShadow(
+        color: Colors.grey.shade100,
+        offset: const Offset(0, 5), //xy轴偏移
+        blurRadius: 5, //阴影模糊半径
+        spreadRadius: 1 //阴影扩散程度
+        )
+  ]);
+}
